@@ -1,4 +1,5 @@
-# Function-Level Entrypoint and Endpoint Technology CLI For NodeJS
+# Function-Level Entrypoint and Endpoint Technology CLI 
+# For NodeJS
 `fleet` is a platform that enables quick and easy management and provisioning of serverless applications.
 
 `fleet-cli` for NodeJS allows you to quickly create, deploy, and manage serverless applications to cloud providers such as AWS. You can easily create an AWS Lambda function, create an AWS S3 static hosted website for a front-end, and centrally manage these resources.
