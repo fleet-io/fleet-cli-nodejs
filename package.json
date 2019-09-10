@@ -1,0 +1,38 @@
+{
+    "name": "fleet-cli",
+    "version": "0.1.0",
+    "description": "Function-Level Entrypoint and Endpoint Technology",
+    "main": "lib/index.js",
+    "keywords": [
+        "aws",
+        "lambda",
+        "serverless",
+        "cli"
+    ],
+    "scripts": {
+        "test": "jasmine-node"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/fleet-io/fleet-cli-nodejs.git"
+    },
+    "author": "Steven Ferrell",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/fleet-io/fleet-cli-nodejs/issues"
+    },
+    "homepage": "https://github.com/fleet-io/fleet-cli-nodejs#readme",
+    "preferGlobal": true,
+    "bin": {
+        "fleet-cli": "./bin/fleet-cli"
+    },
+    "dependencies": {
+        "adm-zip": "^0.4.11",
+        "aws-sdk": "^2.266.1",
+        "table": "^4.0.3",
+        "yargs": "^11.0.0"
+    },
+    "devDependencies": {
+        "jasmine-node": "^1.15.0"
+    }
+}
