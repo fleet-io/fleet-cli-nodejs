@@ -17,14 +17,20 @@ yargs
         fleet.inspectRoute(argv.routeName, argv.property);
     })
     .command(['new-website <websiteName>'], "Create a new website", (yargs) => {
-        return yargs;
+        return yargs.positional('websiteName', {
+            describe: 'Name used for your website',
+            type: 'string'
+        });
     }, (argv) => {
-        console.log('TODO');
+        fleet.newWebsite(argv.websiteName);
     })
     .command(['deploy-website <websiteName>'], "Deploy a website", (yargs) => {
-        return yargs;
+        return yargs.positional('websiteName', {
+            describe: 'Name used for your website to deploy',
+            type: 'string'
+        });
     }, (argv) => {
-        console.log("TODO");
+        fleet.deployWebsite(argv.websiteName);
     })
     .command(['inspect-routes'], "Display routes in current app", (yargs) => {
         return yargs;
@@ -33,19 +39,15 @@ yargs
     })
     .command(['new-route <routeName> <routeDefinition> <routeType>'], 'Create a new route', (yargs) => {
         return yargs.positional('routeName', {
-                describe: 'Name used for your route',
-                type: 'string'
-            }).positional('routeDefinition', {
-                describe: 'Definition of route as it should be exposed in a url, e.g. `api/getUserById/:id`',
-                type: 'string'
-            }).positional('routeType', {
-                describe: 'Type of HTTP Method for this route: GET|POST|PUT|DELETE',
-                type: 'string'
-            })
-            // .option('provider', {
-            //     alias: 'p',
-            //     default: 'aws-lambda'
-            // })
+            describe: 'Name used for your route',
+            type: 'string'
+        }).positional('routeDefinition', {
+            describe: 'Definition of route as it should be exposed in a url, e.g. `api/getUserById/:id`',
+            type: 'string'
+        }).positional('routeType', {
+            describe: 'Type of HTTP Method for this route: GET|POST|PUT|DELETE',
+            type: 'string'
+        });
     }, (argv) => {
         fleet.newRoute(argv.routeName, argv.routeDefinition, argv.routeType);
     })
