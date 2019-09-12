@@ -45,6 +45,16 @@ $ fleet-cli run getFleetCount
 Hello new Route!
 ```
 
+You can create a new website using the `fleet-cli new-website <websiteName>` command. This will produce a source directory for your site within the `websites` folder of our fleet project. You can add/edit files for your site here, including running package managers such as `ng`.
+```
+$ fleet-cli new-website diceRollerSite
+```
+
+Once you are satisifed with the content of your site, you can deploy it using the `fleet-cli deploy-website <websiteName>` command.
+```
+$ fleet-cli deploy-website diceRollerSite
+```
+
 ### Undeploy
 To remove a deployed route, simply call the undeploy-route command. This will remove the specified route and any unused resources.
 ```
