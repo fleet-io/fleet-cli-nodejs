@@ -1,6 +1,6 @@
 {
     "name": "fleet-cli",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Function-Level Entrypoint and Endpoint Technology",
     "main": "lib/index.js",
     "keywords": [
@@ -30,7 +30,8 @@
         "adm-zip": "^0.4.11",
         "aws-sdk": "^2.266.1",
         "table": "^4.0.3",
-        "yargs": "^11.0.0"
+        "yargs": "^11.0.0",
+        "node-dir": "^0.1.17"
     },
     "devDependencies": {
         "jasmine-node": "^1.15.0"

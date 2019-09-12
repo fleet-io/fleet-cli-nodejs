@@ -45,7 +45,7 @@ $ fleet-cli run getFleetCount
 Hello new Route!
 ```
 
-You can create a new website using the `fleet-cli new-website <websiteName>` command. This will produce a source directory for your site within the `websites` folder of our fleet project. You can add/edit files for your site here, including running package managers such as `ng`.
+You can create a new website using the `fleet-cli new-website <websiteName>` command. This will produce a source directory for your site within the `websites` folder of your fleet project. You can add/edit files for your site here, including running package managers such as `ng`.
 ```
 $ fleet-cli new-website diceRollerSite
 ```
