@@ -17,14 +17,20 @@ yargs
         fleet.inspectRoute(argv.routeName, argv.property);
     })
     .command(['new-website <websiteName>'], "Create a new website", (yargs) => {
-        return yargs;
+        return yargs.positional('websiteName', {
+            describe: 'Name used for your website',
+            type: 'string'
+        });
     }, (argv) => {
-        console.log('TODO');
+        fleet.newWebsite(argv.websiteName);
     })
     .command(['deploy-website <websiteName>'], "Deploy a website", (yargs) => {
-        return yargs;
+        return yargs.positional('websiteName', {
+            describe: 'Name used for your website to deploy',
+            type: 'string'
+        });
     }, (argv) => {
-        console.log("TODO");
+        fleet.deployWebsite(argv.websiteName);
     })
     .command(['inspect-routes'], "Display routes in current app", (yargs) => {
         return yargs;
@@ -42,10 +48,6 @@ yargs
                 describe: 'Type of HTTP Method for this route: GET|POST|PUT|DELETE',
                 type: 'string'
             })
-            // .option('provider', {
-            //     alias: 'p',
-            //     default: 'aws-lambda'
-            // })
     }, (argv) => {
         fleet.newRoute(argv.routeName, argv.routeDefinition, argv.routeType);
     })
@@ -73,16 +75,19 @@ yargs
     }, (argv) => {
         fleet.runRoute(argv.routeName);
     })
-    .command(['init <appName>'],
-        'Initialize fleet project',
-        (yargs) => {
-            return yargs
-                .option('region', {
-                    alias: 'r',
-                    default: 'us-east-1'
-                })
-        }, (argv) => {
-            fleet.init(argv.appName, argv.region);
+    .command(['delete-fleet'], 'Delete fleet project', (yargs) => {
+        return yargs;
+    }, (argv) => {
+        fleet.deleteFleet(argv.appName);
+    })
+    .command(['create-fleet <appName>'], 'Create fleet project', (yargs) => {
+        return yargs.option('region', {
+            alias: 'r',
+            default: ['us-east-1'],
+            type: 'array'
         })
+    }, (argv) => {
+        fleet.createFleet(argv.appName, argv.region);
+    })
     .help()
     .argv
