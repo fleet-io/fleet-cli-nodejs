@@ -84,10 +84,16 @@ yargs
         return yargs.option('region', {
             alias: 'r',
             default: ['us-east-1'],
+            description: 'Deploy to one or more regions',
             type: 'array'
+        }).option('global', {
+            alias: 'g',
+            default: false,
+            description: 'Deploy to all available regions',
+            type: 'boolean'
         })
     }, (argv) => {
-        fleet.createFleet(argv.appName, argv.region);
+        fleet.createFleet(argv.appName, argv.region, argv.global);
     })
     .help()
     .argv
