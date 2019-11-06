@@ -143,7 +143,11 @@ yargs
             command: 'create-fleet',
             time: Date.now()
         }
-        fleet.createFleet(argv.appName, argv.region, argv.global, correlationData);
+        fleet.createFleet(argv.appName, argv.region, argv.global, correlationData).catch(e => console.log(`Error executing create-fleet command.`));
     })
     .help()
     .argv
+
+    process.on('unhandledRejection', (reason, p) => {
+        console.log('Unhandled Rejection. Code:', reason.code, 'Message:', reason.message);
+    });
