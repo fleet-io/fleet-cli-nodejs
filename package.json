@@ -1,13 +1,15 @@
 {
     "name": "fleet-cli",
-    "version": "0.1.3",
+    "version": "0.2.0",
     "description": "Function-Level Entrypoint and Endpoint Technology",
     "main": "lib/index.js",
     "keywords": [
         "aws",
         "lambda",
         "serverless",
-        "cli"
+        "cli",
+        "api",
+        "apigateway"
     ],
     "scripts": {
         "test": "jasmine-node"
@@ -32,8 +34,7 @@
         "node-dir": "^0.1.17",
         "rimraf": "^3.0.0",
         "table": "^4.0.3",
-        "yargs": "^11.0.0",
-        "node-dir": "^0.1.17"
+        "yargs": "^11.0.0"
     },
     "devDependencies": {
         "jasmine-node": "^1.15.0"
