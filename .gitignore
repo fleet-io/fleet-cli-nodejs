@@ -2,5 +2,7 @@
 .vscode
 fleet.json
 /routes
+/websites
 /coverage
 npm-debug.log
+/logs

@@ -14,40 +14,67 @@ yargs
                 alias: 'p',
             })
     }, (argv) => {
-        fleet.inspectRoute(argv.routeName, argv.property);
+        let correlationData = {
+            invokedBy: 'CLI',
+            command: 'inspct-route',
+            time: Date.now()
+        }
+        fleet.inspectRoute(argv.routeName, argv.property, correlationData);
     })
     .command(['new-website <websiteName>'], "Create a new website", (yargs) => {
-        return yargs;
+        return yargs.positional('websiteName', {
+            describe: 'Name used for your website',
+            type: 'string'
+        });
     }, (argv) => {
-        console.log('TODO');
+        let correlationData = {
+            invokedBy: 'CLI',
+            command: 'new-website',
+            time: Date.now()
+        }
+        fleet.newWebsite(argv.websiteName, correlationData);
     })
     .command(['deploy-website <websiteName>'], "Deploy a website", (yargs) => {
-        return yargs;
+        return yargs.positional('websiteName', {
+            describe: 'Name used for your website to deploy',
+            type: 'string'
+        });
     }, (argv) => {
-        console.log("TODO");
+        let correlationData = {
+            invokedBy: 'CLI',
+            command: 'deploy-website',
+            time: Date.now()
+        }
+        fleet.deployWebsite(argv.websiteName, correlationData);
     })
     .command(['inspect-routes'], "Display routes in current app", (yargs) => {
         return yargs;
     }, (argv) => {
-        fleet.inspectRoutes();
+        let correlationData = {
+            invokedBy: 'CLI',
+            command: 'inspcet-routes',
+            time: Date.now()
+        }
+        fleet.inspectRoutes(correlationData);
     })
     .command(['new-route <routeName> <routeDefinition> <routeType>'], 'Create a new route', (yargs) => {
         return yargs.positional('routeName', {
-                describe: 'Name used for your route',
-                type: 'string'
-            }).positional('routeDefinition', {
-                describe: 'Definition of route as it should be exposed in a url, e.g. `api/getUserById/:id`',
-                type: 'string'
-            }).positional('routeType', {
-                describe: 'Type of HTTP Method for this route: GET|POST|PUT|DELETE',
-                type: 'string'
-            })
-            // .option('provider', {
-            //     alias: 'p',
-            //     default: 'aws-lambda'
-            // })
+            describe: 'Name used for your route',
+            type: 'string'
+        }).positional('routeDefinition', {
+            describe: 'Definition of route as it should be exposed in a url, e.g. `api/getUserById/:id`',
+            type: 'string'
+        }).positional('routeType', {
+            describe: 'Type of HTTP Method for this route: GET|POST|PUT|DELETE',
+            type: 'string'
+        });
     }, (argv) => {
-        fleet.newRoute(argv.routeName, argv.routeDefinition, argv.routeType);
+        let correlationData = {
+            invokedBy: 'CLI',
+            command: 'new-route',
+            time: Date.now()
+        }
+        fleet.newRoute(argv.routeName, argv.routeDefinition, argv.routeType, correlationData);
     })
     .command(['deploy-route <routeName>'], 'Deploy a route', (yargs) => {
         return yargs.positional('routeName', {
@@ -55,7 +82,12 @@ yargs
             type: 'string'
         })
     }, (argv) => {
-        fleet.deployRoute(argv.routeName);
+        let correlationData = {
+            invokedBy: 'CLI',
+            command: 'deploy-route',
+            time: Date.now()
+        }
+        fleet.deployRoute(argv.routeName, correlationData);
     })
     .command(['undeploy-route <routeName>'], 'Deploy a route', (yargs) => {
         return yargs.positional('routeName', {
@@ -63,7 +95,12 @@ yargs
             type: 'string'
         })
     }, (argv) => {
-        fleet.undeployRoute(argv.routeName);
+        let correlationData = {
+            invokedBy: 'CLI',
+            command: 'undeploy-route',
+            time: Date.now()
+        }
+        fleet.undeployRoute(argv.routeName, correlationData);
     })
     .command(['run-route <routeName>'], 'Locally run a route', (yargs) => {
         return yargs.positional('routeName', {
@@ -71,18 +108,46 @@ yargs
             type: 'string'
         })
     }, (argv) => {
-        fleet.runRoute(argv.routeName);
+        let correlationData = {
+            invokedBy: 'CLI',
+            command: 'run-route',
+            time: Date.now()
+        }
+        fleet.runRoute(argv.routeName, correlationData);
     })
-    .command(['init <appName>'],
-        'Initialize fleet project',
-        (yargs) => {
-            return yargs
-                .option('region', {
-                    alias: 'r',
-                    default: 'us-east-1'
-                })
-        }, (argv) => {
-            fleet.init(argv.appName, argv.region);
+    .command(['delete-fleet'], 'Delete fleet project', (yargs) => {
+        return yargs;
+    }, (argv) => {
+        let correlationData = {
+            invokedBy: 'CLI',
+            command: 'delete-fleet',
+            time: Date.now()
+        }
+        fleet.deleteFleet(correlationData);
+    })
+    .command(['create-fleet <appName>'], 'Create fleet project', (yargs) => {
+        return yargs.option('region', {
+            alias: 'r',
+            default: ['us-east-1'],
+            description: 'Deploy to one or more regions',
+            type: 'array'
+        }).option('global', {
+            alias: 'g',
+            default: false,
+            description: 'Deploy to all available regions',
+            type: 'boolean'
         })
+    }, (argv) => {
+        let correlationData = {
+            invokedBy: 'CLI',
+            command: 'create-fleet',
+            time: Date.now()
+        }
+        fleet.createFleet(argv.appName, argv.region, argv.global, correlationData).catch(e => console.log(`Error executing create-fleet command.`));
+    })
     .help()
     .argv
+
+    process.on('unhandledRejection', (reason, p) => {
+        console.log('Unhandled Rejection. Code:', reason.code, 'Message:', reason.message);
+    });

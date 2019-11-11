@@ -1,4 +1,4 @@
-# Function-Level Entrypoint and Endpoint Technology CLI For NodeJS
+# Function-Level Entrypoint and Endpoint Technology Command Line Interface for NodeJS
 `fleet` is a platform that enables quick and easy management and provisioning of serverless applications.
 
 `fleet-cli` for NodeJS allows you to quickly create, deploy, and manage serverless applications to cloud providers such as AWS. You can easily create an AWS Lambda function, create an AWS S3 static hosted website for a front-end, and centrally manage these resources.
@@ -43,6 +43,16 @@ You can run a route locally using the `fleet-cli run-route <routeName>` command.
 ```
 $ fleet-cli run getFleetCount
 Hello new Route!
+```
+
+You can create a new website using the `fleet-cli new-website <websiteName>` command. This will produce a source directory for your site within the `websites` folder of your fleet project. You can add/edit files for your site here, including running package managers such as `ng`.
+```
+$ fleet-cli new-website diceRollerSite
+```
+
+Once you are satisifed with the content of your site, you can deploy it using the `fleet-cli deploy-website <websiteName>` command.
+```
+$ fleet-cli deploy-website diceRollerSite
 ```
 
 ### Undeploy
