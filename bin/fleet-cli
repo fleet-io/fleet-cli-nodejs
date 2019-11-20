@@ -19,7 +19,21 @@ yargs
             command: 'inspct-route',
             time: Date.now()
         }
-        fleet.inspectRoute(argv.routeName, argv.property, correlationData);
+        fleet.inspectRoute(argv.routeName, argv.property, process.cwd(), correlationData);
+    })
+    .command(['inspect-routes'], "Display routes in current app", (yargs) => {
+        return yargs
+        .option('routeName', {
+            describe: 'Specific route to inspect',
+            alias: 'rn',
+        })
+    }, (argv) => {
+        let correlationData = {
+            invokedBy: 'CLI',
+            command: 'inspcet-routes',
+            time: Date.now()
+        }
+        fleet.inspectRoutes(argv.routeName, process.cwd(), correlationData);
     })
     .command(['new-website <websiteName>'], "Create a new website", (yargs) => {
         return yargs.positional('websiteName', {
@@ -32,7 +46,7 @@ yargs
             command: 'new-website',
             time: Date.now()
         }
-        fleet.newWebsite(argv.websiteName, correlationData);
+        fleet.newWebsite(argv.websiteName, process.cwd(), correlationData);
     })
     .command(['deploy-website <websiteName>'], "Deploy a website", (yargs) => {
         return yargs.positional('websiteName', {
@@ -45,17 +59,7 @@ yargs
             command: 'deploy-website',
             time: Date.now()
         }
-        fleet.deployWebsite(argv.websiteName, correlationData);
-    })
-    .command(['inspect-routes'], "Display routes in current app", (yargs) => {
-        return yargs;
-    }, (argv) => {
-        let correlationData = {
-            invokedBy: 'CLI',
-            command: 'inspcet-routes',
-            time: Date.now()
-        }
-        fleet.inspectRoutes(correlationData);
+        fleet.deployWebsite(argv.websiteName, process.cwd(), correlationData);
     })
     .command(['new-route <routeName> <routeDefinition> <routeType>'], 'Create a new route', (yargs) => {
         return yargs.positional('routeName', {
@@ -74,7 +78,7 @@ yargs
             command: 'new-route',
             time: Date.now()
         }
-        fleet.newRoute(argv.routeName, argv.routeDefinition, argv.routeType, correlationData);
+        fleet.newRoute(argv.routeName, argv.routeDefinition, argv.routeType, process.cwd(), correlationData);
     })
     .command(['deploy-route <routeName>'], 'Deploy a route', (yargs) => {
         return yargs.positional('routeName', {
@@ -87,7 +91,7 @@ yargs
             command: 'deploy-route',
             time: Date.now()
         }
-        fleet.deployRoute(argv.routeName, correlationData);
+        fleet.deployRoute(argv.routeName, process.cwd(), correlationData);
     })
     .command(['undeploy-route <routeName>'], 'Deploy a route', (yargs) => {
         return yargs.positional('routeName', {
@@ -100,7 +104,7 @@ yargs
             command: 'undeploy-route',
             time: Date.now()
         }
-        fleet.undeployRoute(argv.routeName, correlationData);
+        fleet.undeployRoute(argv.routeName, process.cwd(), correlationData);
     })
     .command(['run-route <routeName>'], 'Locally run a route', (yargs) => {
         return yargs.positional('routeName', {
@@ -113,7 +117,7 @@ yargs
             command: 'run-route',
             time: Date.now()
         }
-        fleet.runRoute(argv.routeName, correlationData);
+        fleet.runRoute(argv.routeName, process.cwd(), correlationData);
     })
     .command(['delete-fleet'], 'Delete fleet project', (yargs) => {
         return yargs;
@@ -123,7 +127,7 @@ yargs
             command: 'delete-fleet',
             time: Date.now()
         }
-        fleet.deleteFleet(correlationData);
+        fleet.deleteFleet(process.cwd(), correlationData);
     })
     .command(['create-fleet <appName>'], 'Create fleet project', (yargs) => {
         return yargs.option('region', {
@@ -143,7 +147,7 @@ yargs
             command: 'create-fleet',
             time: Date.now()
         }
-        fleet.createFleet(argv.appName, argv.region, argv.global, correlationData).catch(e => console.log(`Error executing create-fleet command.`));
+        fleet.createFleet(argv.appName, argv.region, argv.global, process.cwd(), correlationData).catch(e => console.log(`Error executing create-fleet command.`, e));
     })
     .help()
     .argv

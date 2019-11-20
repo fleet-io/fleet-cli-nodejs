@@ -15,10 +15,10 @@
 - npm i -g fleet-cli
 
 ### Usage
-Calling `fleet-cli init <appName>` in your terminal will initialize your local `fleet` environment. This environment will come with a `fleet.json` configuration file and will create your application's routes directory.
+Calling `fleet-cli create-fleet <appName>` in your terminal will initialize your local `fleet` environment. This environment will come with a `fleet.json` configuration file and will create your application's routes directory. Note: You can specify creating your fleet for a set of regions with the --region tag or for all available regions with the --global tag.
 ```
-# fleet-cli init <appName>
-$ fleet-cli init myFleetApp
+# fleet-cli create-fleet <appName>
+$ fleet-cli create-fleet myFleetApp
 ```
 Once your environment has been created, you can make a new route using the CLI. A route is a serverless application that runs your code and can be triggered by various services, such as an API Gateway. Call the `new-route` command and supply the unique route name, definition of the route, and the type of route (e.g. GET, POST). The route definition provides your API with a URL structure (e.g. http://example.com/admin/users/1 would be `admin/users/:id` and would define a route for getting users by their ID). The unique route name will provide an identifier for this route and will be used to create your route's local code folder.
 ```
@@ -30,7 +30,7 @@ This will create a new folder in your local environment called `routes/getFleetC
 # Within routes/getFleetCount directory
 $ index.js package.json
 ```
-At this point you can modify the code within this route's index.js to your liking. If you want to add node modules, you can `cd` into the directory and `npm install`.
+At this point you can modify the code within this route's index.js to your liking. If you want to add node modules, you can `cd` into the new directory and `npm install` as usual.
 You can deploy this route to your remote `fleet` application using the `fleet` CLI. This will setup various services such as API Gateway, Lambda, IAM Roles/Policies, etc.
 ```
 # fleet-cli deploy-route <routeName>
@@ -60,6 +60,10 @@ To remove a deployed route, simply call the undeploy-route command. This will re
 ```
 $ fleet-cli undeploy-route getFleetCount
 ```
+To delete an entire fleet, call the `delete-fleet` command. This will remove all resources.
+```
+$ fleet-cli delete-fleet
+```
 
 ### Inspect
 To get information about your current fleet application's routes, you can use the following commands:
@@ -75,7 +79,7 @@ $ fleet-cli inspect-routes
 $ fleet-cli inspect-route getFleetCount --property url
 http://example.com/fleetcount
 ```
-Using `fleet`'s inspect commands will help you manage your application, allowing you to track deployment information, versioning, and more.
+Using the `fleet` inspect commands will help you manage your application, allowing you to track deployment information, versioning, and more.
 
 ### Build fleet-cli-nodejs Locally
 To build fleet-cli from source and run locally, run the following commands:
