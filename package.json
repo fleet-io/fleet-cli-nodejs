@@ -1,6 +1,6 @@
 {
     "name": "fleet-cli",
-    "version": "0.2.7",
+    "version": "0.2.12",
     "description": "Function-Level Entrypoint and Endpoint Technology",
     "main": "lib/index.js",
     "keywords": [

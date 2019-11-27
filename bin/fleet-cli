@@ -106,6 +106,19 @@ yargs
         }
         fleet.undeployRoute(argv.routeName, process.cwd(), correlationData);
     })
+    .command(['delete-route <routeName>'], 'Delete a route', (yargs) => {
+        return yargs.positional('routeName', {
+            describe: 'Name used for your route to delete',
+            type: 'string'
+        })
+    }, (argv) => {
+        let correlationData = {
+            invokedBy: 'CLI',
+            command: 'delete-route',
+            time: Date.now()
+        }
+        fleet.deleteRoute(argv.routeName, process.cwd(), correlationData);
+    })
     .command(['run-route <routeName>'], 'Locally run a route', (yargs) => {
         return yargs.positional('routeName', {
             describe: 'Name of route to test',
