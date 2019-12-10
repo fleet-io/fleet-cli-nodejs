@@ -61,6 +61,19 @@ yargs
         }
         fleet.deployWebsite(argv.websiteName, process.cwd(), correlationData);
     })
+    .command(['delete-website <websiteName>'], "Delete a website", (yargs) => {
+        return yargs.positional('websiteName', {
+            describe: 'Name used for your website to delete',
+            type: 'string'
+        });
+    }, (argv) => {
+        let correlationData = {
+            invokedBy: 'CLI',
+            command: 'delete-website',
+            time: Date.now()
+        }
+        fleet.deleteWebsite(argv.websiteName, process.cwd(), correlationData);
+    })
     .command(['new-route <routeName> <routeDefinition> <routeType>'], 'Create a new route', (yargs) => {
         return yargs.positional('routeName', {
             describe: 'Name used for your route',
